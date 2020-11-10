@@ -4,8 +4,17 @@ import os
 import time
 import yaml
 
-def button_callback(channel, config):
-    print(config['transaction']['path_to_robonomics_file'])
+
+global pressed
+
+def button_callback(channel):
+    global pressed
+    if pressed == True:
+        print('Turned off')
+        pressed = False
+    else:
+        print('Turned on')
+        pressed = True
 
 def read_configuration(dirname) -> dict:
 
@@ -31,9 +40,11 @@ class Error(Exception):
 dirname = os.path.dirname(os.path.abspath(__file__))
 config = read_configuration(dirname)
 
+pressed = False
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(18,GPIO.RISING,callback=button_callback(config), bouncetime=2000) # Setup event on pin 12 rising edge
+GPIO.add_event_detect(18,GPIO.RISING,callback=button_callback, bouncetime=2000) # Setup event on pin 12 rising edge
 
 message = input("Waiting fo button to be pressed\n\n") # Run until someone presses enter
 GPIO.cleanup() # Clean up
