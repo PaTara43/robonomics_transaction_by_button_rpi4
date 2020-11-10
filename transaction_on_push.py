@@ -10,10 +10,18 @@ global pressed
 def button_callback(channel):
     global pressed
     if pressed == True:
-        print('Turned off')
+        program = "echo \""OFF"\" | " + config['transaction']['path_to_robonomics_file'] + \
+            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+        process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
+        output = process.stdout.readline()
+        logging.debug("Transaction hash is " + output.strip().decode('utf8'))
         pressed = False
     else:
-        print('Turned on')
+        program = "echo \""ON"\" | " + config['transaction']['path_to_robonomics_file'] + \
+            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+        process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
+        output = process.stdout.readline()
+        logging.debug("Transaction hash is " + output.strip().decode('utf8'))
         pressed = True
 
 def read_configuration(dirname) -> dict:
