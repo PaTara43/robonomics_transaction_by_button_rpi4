@@ -1,9 +1,10 @@
-import RPi.GPIO as GPIO
 import logging
 import os
 import subprocess
 import time
 import yaml
+
+from pyfirmata import Arduino, util
 
 
 global pressed
@@ -51,9 +52,16 @@ config = read_configuration(dirname)
 
 pressed = False
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(18,GPIO.RISING,callback=button_callback, bouncetime=2000) # Setup event on pin 12 rising edge
+board = Arduino('/dev/ttyACM0') #Select the correct port
+board.get_pin('d:9:i')
+thread = util.Iterator(board)
+thread.start()
 
-message = input("Waiting fo button to be pressed\n\n") # Run until someone presses enter
-GPIO.cleanup() # Clean up
+time.sleep(1)
+
+while True:
+    if board.analog[2].read()== True:
+        print('!!!')
+   else:
+        print('No one')
+   time.sleep(0.5)
