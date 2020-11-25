@@ -5,26 +5,29 @@ import time
 import yaml
 
 from pyfirmata import Arduino, util
+from pyfirmata.util import Iterator
+
+global on_off
 
 
-global pressed
+def callback():
+    global on_off
 
-def button_callback(channel):
-    global pressed
-    if pressed == True:
+    if on_off:
         program = "echo \"OFF\" | " + config['transaction']['path_to_robonomics_file'] + \
             " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("OFF transaction hash is " + output.strip().decode('utf8'))
-        pressed = False
+        on_off = False
     else:
         program = "echo \"ON\" | " + config['transaction']['path_to_robonomics_file'] + \
             " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("ON transaction hash is " + output.strip().decode('utf8'))
-        pressed = True
+        on_off = True
+
 
 def read_configuration(dirname) -> dict:
 
@@ -43,6 +46,7 @@ def read_configuration(dirname) -> dict:
             logging.error(e)
             exit()
 
+
 class Error(Exception):
     pass
 
@@ -50,18 +54,20 @@ class Error(Exception):
 dirname = os.path.dirname(os.path.abspath(__file__))
 config = read_configuration(dirname)
 
-pressed = False
+state = False
+prev_state = False
+on_off = False
 
 board = Arduino('/dev/ttyACM0') #Select the correct port
-board.get_pin('d:9:i')
-thread = util.Iterator(board)
-thread.start()
-
-time.sleep(1)
-
+it = util.Iterator(board)
+it.start()
+board.analog[2].enable_reporting()
 while True:
-    if board.analog[2].read()== True:
-        print('!!!')
-   else:
-        print('No one')
-   time.sleep(0.5)
+    if board.analog[2].read() == None:
+        continue
+    prev_state = state
+    state = (board.analog[2].read() >= 0.9)
+    if state and not prev_state:
+        callback()
+    else:
+        continue

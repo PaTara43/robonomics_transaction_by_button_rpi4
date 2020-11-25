@@ -31,3 +31,5 @@ pio lib install SoftwareSerial
 pio run
 pio run --target upload
 ```
+
+connect button to 5v and A2 pins
