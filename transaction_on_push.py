@@ -6,6 +6,8 @@ import yaml
 
 from pyfirmata import Arduino, util
 from pyfirmata.util import Iterator
+from threading import Thread
+
 
 global on_off
 
@@ -66,8 +68,10 @@ while True:
     if board.analog[2].read() == None:
         continue
     prev_state = state
-    state = (board.analog[2].read() >= 0.9)
+    state = (board.analog[2].read() >= 0.95)
     if state and not prev_state:
-        callback()
+        callback_thread = Thread(target=callback, args=())
+        callback_thread.start()
+        time.sleep(8)
     else:
-        continue
+        time.sleep(0.1)
