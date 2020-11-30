@@ -17,14 +17,14 @@ def callback():
 
     if on_off:
         program = "echo \"OFF\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("OFF transaction hash is " + output.strip().decode('utf8'))
         on_off = False
     else:
         program = "echo \"ON\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("ON transaction hash is " + output.strip().decode('utf8'))
@@ -68,7 +68,7 @@ while True:
     if board.analog[2].read() == None:
         continue
     prev_state = state
-    state = (board.analog[2].read() >= 0.95)
+    state = (board.analog[2].read() <= 0.8)
     if state and not prev_state:
         callback_thread = Thread(target=callback, args=())
         callback_thread.start()
