@@ -12,14 +12,14 @@ def button_callback(channel):
     global pressed
     if pressed == True:
         program = "echo \"OFF\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("OFF transaction hash is " + output.strip().decode('utf8'))
         pressed = False
     else:
         program = "echo \"ON\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("ON transaction hash is " + output.strip().decode('utf8'))
