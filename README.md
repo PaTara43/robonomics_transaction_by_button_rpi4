@@ -26,7 +26,7 @@ pio lib install SoftwareSerial
 pio run
 pio run --target upload
 ```
-Connect button to 5v and A2 pins on LattePanda
+Connect button to 5G, GND and A2 pins on LattePanda
 ![LattePanda](https://core-electronics.com.au/media/wysiwyg/tutorials/sam/Pinout-Development-Support.png "LattePanda")
 
 To avoid voltage bounce and fake button presses use this scheme where "PIN8" is your LattePanda's A2 pins
@@ -41,7 +41,7 @@ nano config.yaml
 ```
 
 Fill in all the required info. More info about accounts [here](https://wiki.robonomics.network/docs/create-account-in-dapp/)
-Watch out for lines 63, 66, 68, 71 of `transaction_on_push.py` if you board address or pin or voltage level differs.
+Watch out for lines 63, 66, 68, 71 of `transaction_on_push.py` if your board device address or pin or voltage level differs.
 
 Launch the script by `python3 transaction_on_push.py`
 
