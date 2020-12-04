@@ -1,11 +1,7 @@
-# robonomics_transaction_by_button_rpi4
-##panda edition
+# Robonomics_transaction_by_button_rpi4
+## Panda edition
 **This is for LattePanda with ubuntu installed**
-
-https://docs.platformio.org/en/latest/core/quickstart.html
-
-
-### To set up panda's Arduino board
+### To set up LattePanda's Arduino board
 ```bash
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py -o get-platformio.py
 python3 get-platformio.py
@@ -15,18 +11,14 @@ cd pio_firmata/
 pio project init --board leonardo
 nano platformio.ini
 ```
-insert script from here
-https://platformio.org/lib/show/307/Firmata/installation
-
+Insert script from [here](https://platformio.org/lib/show/307/Firmata/installation)
 ```bash
 pio lib install "firmata/Firmata@^2.5.8"
 cd src
 touch StandardFirmata.ino
 nano StandardFirmata.ino
 ```
-insert script from here
-https://platformio.org/lib/show/307/Firmata/examples
-
+Insert script from [here](https://platformio.org/lib/show/307/Firmata/examples)
 ```bash
 cd ..
 pio lib install Servo
