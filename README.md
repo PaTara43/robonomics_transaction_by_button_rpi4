@@ -2,7 +2,7 @@
 ## Send Transactions By pressing button with Raspberry Pi4
 
 Connect button to 5V (PIN4), GND(PIN6) and GPIO18 (PIN12) (in this example) pins on Raspberry Pi
-![Raspberry](https://www.raspberrypi.org/documentation/usage/gpio/images/GPIO-Pinout-Diagram-2.png "Raspberry")
+![Raspberry](https://www.bigmessowires.com/wp-content/uploads/2018/05/Raspberry-GPIO.jpg "Raspberry")
 
 To avoid voltage bounce and fake button presses use this scheme where "PIN8" is your LattePanda's A2 pins
 ![scheme](https://github.com/PaTara43/media/blob/master/button_panda?raw=true "scheme")
