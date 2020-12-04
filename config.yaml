@@ -1,5 +1,5 @@
 transaction:
   path_to_robonomics_file: "" #where lies the binaty file, ends with a binary filename
   remote: '' #e.g. ws://127.0.0.1:9944
-  address: '' #camera address in chain
-  key: '' #control key
+  address: '' #destination  address in chain
+  key: '' #sender secret seed (key) to sign transactions
