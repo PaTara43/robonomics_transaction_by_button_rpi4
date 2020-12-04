@@ -17,14 +17,14 @@ def callback():
 
     if on_off:
         program = "echo \"OFF\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch --remote " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("OFF transaction hash is " + output.strip().decode('utf8'))
         on_off = False
     else:
         program = "echo \"ON\" | " + config['transaction']['path_to_robonomics_file'] + \
-            " io write launch --remtoe " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
+            " io write launch " + config['transaction']['remote'] + " -s " + config['transaction']['key'] + " -r " + config['transaction']['address']
         process = subprocess.Popen(program, shell=True, stdout=subprocess.PIPE)
         output = process.stdout.readline()
         logging.warning("ON transaction hash is " + output.strip().decode('utf8'))
