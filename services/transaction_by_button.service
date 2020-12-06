@@ -1,0 +1,13 @@
+[Unit]
+Description=transaction_by_button
+After=network.target
+
+[Service]
+Type = simple
+Restart=always
+RestartSec=1
+ExecStart=
+User=
+
+[Install]
+WantedBy=multi-user.target
