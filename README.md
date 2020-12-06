@@ -21,3 +21,24 @@ Watch out for lines 56, 58 of `transaction_on_push.py` if your pin differs.
 Launch the script by `python3 transaction_on_push.py`
 
 Press button to send transactions in network.
+
+## Auto-start
+You may want to auto-restart this script. To be able so, edit service file
+```bash
+nano services/transaction_by_button.service
+```
+and fill it with path to python3 and the script. Don't forget to fill in username. E.g.:
+```
+ExecStart=/usr/bin/python3 /home/ubuntu/robonomics_transaction_by_button_rpi4/transaction_on_push.py
+User=ubuntu
+```
+Then move it to `/etc/systemd/system/` and run:
+```bash
+sudo mv services/transaction_by_button.service /etc/systemd/system/
+systemctl enable transaction_by_button
+systemctl start transaction_by_button
+```
+To check service status do:
+```bash
+systemctl -l status transaction_by_button
+```
