@@ -11,9 +11,10 @@ Then on Raspberry Pi:
 ```bash
 git clone https://github.com/PaTara43/robonomics_transaction_by_button_rpi4
 cd robonomics_transaction_by_button_rpi4
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 nano config.yaml
 ```
+RPi.GPIO may not install properly, use `apt-get instead`
 
 Fill in all the required info. More info about accounts [here](https://wiki.robonomics.network/docs/create-account-in-dapp/)
 Watch out for lines 56, 58 of `transaction_on_push.py` if your pin differs.
