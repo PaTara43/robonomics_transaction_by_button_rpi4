@@ -36,7 +36,7 @@ Then on panda:
 ```bash
 git clone -b panda https://github.com/PaTara43/robonomics_transaction_by_button_rpi4
 cd robonomics_transaction_by_button_rpi4
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 nano config.yaml
 ```
 
